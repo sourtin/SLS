@@ -1,0 +1,52 @@
+Space Launch Simulator v0.1a
+William Earley
+Feb 2013
+
+License: GPLv3, see gpl.txt
+If you use this software, please reference the original
+
+This software will compute many different variables over the course of a
+launch simulation. It is generalised, and you can input any number of
+stages and burn phases, with ranges or constant ISPs and other variables
+
+python sls.py
+
+Run the above command to see sample output data for the Apollo 11
+Saturn V, first 11:52 of the launch, using a mission profile from
+http://www.braeunig.us/apollo/saturnV.htm
+Note that the simulation does not exactly reproduce his results,
+however it was close enough for my needs, feel free to tweak the
+mission profile to more closely approximate the launch
+
+There is currently no documentation, below is a brief description
+of each python file and what it does to try to make up for the lack
+of documentation, please also note that all units are SI
+
+	interpolation.py provides a number of mathematical tools for
+		interpolating by akima cubic spline, integrating, matrices
+		and linear system solving, and others
+		
+	rocket.py provides a number of generic classes for holding data
+		for use in other classes
+		
+	atmosphere.py provides an atmosphere class, which takes in a
+		csv file containing:
+		
+		altitude /m
+		air temp /K
+		air density /kg/m3
+		pressure /Pa
+		molar mass /g/mol
+		specific heat ratio
+	
+		and then provides functions interpolating all of these values
+		across the entire altitude range, make sure that the altitude
+		is in the correct order, and increasing
+		
+	sim.py provides the sim class, which carries out the simulations.
+		A sample use is in sls.py
+	
+	sls.py may one day be a front end for the simulator, currently
+		just performs one example launch (Apollo 11 Saturn V)
+		and saves the distance/drag data to the file sim.dat for
+		use in gnuplot
